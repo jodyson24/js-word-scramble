@@ -12,21 +12,42 @@
 
         var playing = true;
 
+        function scramble(originalWord) {
+            var scrambledWord = ""
+            var randomIndex
+            // change this to an array
+            var word = originalWord.split("")
+
+
+            while (word.length > 0) {
+                // set our randomIndex
+                randomIndex = Math.floor(Math.random() * word.length);
+                console.log("In scramble: ", word, randomIndex);
+
+                // pull a char out of the string and add it to the scrambled word
+                scrambledWord = scrambledWord + word.splice(randomIndex,1);
+                console.log("Building scrambledWord: ", scrambledWord);
+            }
+
+            return scrambledWord;
+        }
+
         while (playing) {
 
             // Grab a random word from the WORDS array
-            var index = Math.floor(Math.random() * 100) % WORDS.length;
-            console.log(index);
+            var index = Math.floor(Math.random() * WORDS.length);
+            console.log("In playing: ", WORDS[index]);
 
             // Grab the corresponding scrambled word from the SCRAMBLED array
-            var target = SCRAMBLED[index];
-            console.log(target);
+            //var target = SCRAMBLED[index];
+            var target = scramble(WORDS[index]);
+            console.log("In playing: ", target);
 
             // prompt the user to guess the original word when given the scrambled word
             var raw_guess = prompt("Decode " + target + " -- What's your guess?");
 
             // Normalize the guess
-            var guess = raw_guess.trim().toLowerCase()
+            var guess = raw_guess.trim().toLowerCase();
 
             // If the user guesses wrong, tell them they were wrong and the right word.
             if (guess !== WORDS[index]) {
@@ -39,7 +60,7 @@
             }
 
             playing = confirm("Press OK To keep playing or Cancel to quit");
-            console.log(playing)
+            //console.log(playing)
             // What does confirm() return?
             // What does setting the playing variable do?
         }
